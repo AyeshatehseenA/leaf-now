@@ -1,0 +1,124 @@
+<!doctype html>
+  
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> PDF Viewer</title>
+  <script
+    src="http://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+  </script>
+ 
+  <style>
+    body{
+        background-color: black;
+    }
+    h1{
+        font-size: 28px;
+        font-style:italic;
+        color: sandybrown;
+        
+        
+    }
+    p{
+        font-size: 25px;
+    }
+    h2{
+        text-align:top center;
+        text-shadow: 10px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: palevioletred;
+        background-color:rgb(68, 18, 18);
+       font-size: 50px;
+    }
+      #canvas_container {
+          width: 900px;
+          height:650px;
+         
+      }
+ 
+      #canvas_container {
+        background-color: burlywood;
+        text-align: center;
+        border: solid 1px;
+      }
+      label{
+          color: black;
+          font-size: 25px;
+      }
+      h3{
+          color: sandybrown;
+          size: 25px;
+      }
+      a{
+          color: sandybrown;
+          font-size: 25px;
+
+      }
+  </style>
+</head>
+<body>
+    <h1>PDF DOWNLOAD</h1>
+    <div id="my_pdf_viewer">
+        <div id="canvas_container">
+            <canvas id="pdf_renderer"></canvas>
+            <h2>LEAF NOW</h2>
+        <p>CERTIFICATE OF PARTICIPATION<br></br>
+           granted to Mr/Miss.<label for="name"> name:</label><input type="text" id="name"name="name"><br></br></p>
+           <label>
+            CONTRIBUTION in
+           </label>
+          <SELECT NAME="CONTRIBUTION in " id="CONTRIBUTION in">
+           <OPTION VALUE="SELLING">SELLING
+           <OPTION VALUE="BUYING">BUYING
+           <OPTION VALUE="DONATING">DONATING
+           </SELECT><br></br>
+
+        <p>Founder of "LEAF NOW" is specially 'THANKING YOU' for taking part in selling/buying/donating Plants/Seeds ,from our company or to our comapny.<br></br>
+  <br></br> lets have  hands together for BEAUTIFUL WORLD.
+        </p>
+        </div>
+ 
+        
+ 
+    <script>
+        var myState = {
+            pdf: null,
+            currentPage: 1,
+            zoom: 1
+        }
+      
+        pdfjsLib.getDocument('./my_document.pdf').then((pdf) => {
+      
+            myState.pdf = pdf;
+            render();
+ 
+        });
+ 
+        function render() {
+            myState.pdf.getPage(myState.currentPage).then((page) => {
+          
+                var canvas = document.getElementById("pdf_renderer");
+                var ctx = canvas.getContext('2d');
+      
+                var viewport = page.getViewport(myState.zoom);
+ 
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+          
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                });
+            });
+        }
+ 
+        
+    </script>
+    <h3>click below to download</h3>
+    <a href="mypdf.pdf" download="mypdf">
+    <b>download</b>
+</a>
+
+</body>
+</html>
